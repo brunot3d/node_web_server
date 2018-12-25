@@ -4,6 +4,8 @@ const app = express()
 const path = require('path')
 const fs = require('fs')
 
+const port = process.env.PORT || 3000
+
 app.set('view engine', 'ejs')
 app.set('partials', path.join( __dirname + '/views/partials'))
 
@@ -12,7 +14,7 @@ app.use((req, res, next) => {
   const log = `${now}: ${req.method} ${req.url}`
 
   console.log(log)
-  fs.appendFile('server,log', log + '\n', (err) => {
+  fs.appendFile('server.log', log + '\n', (err) => {
     if (err) {
       console.log('Unable to append to server.log')
     }
@@ -52,6 +54,6 @@ app.get('/bad', (req, res) => {
   })
 })
 
-app.listen(3000, () => {
-  console.log('Server running on port: 3000')
+app.listen(port, () => {
+  console.log(`Server is up on port: ${port}`)
 })
